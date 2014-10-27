@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{Node.js v0.10.26 Core Modules, angularjs-DefinitelyTyped, body-parser-DefinitelyTyped, express-DefinitelyTyped, express-session-DefinitelyTyped, mongodb-DefinitelyTyped, mongoose-DefinitelyTyped, morgan-DefinitelyTyped, passport-DefinitelyTyped, passport-local-DefinitelyTyped, passport-strategy-DefinitelyTyped, toastr-DefinitelyTyped}" />
+    <includedPredefinedLibrary name="Node.js Globals" />
+  </component>
+</project>
