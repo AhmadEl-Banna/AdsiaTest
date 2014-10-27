@@ -12,7 +12,7 @@ angular.module('app').controller('navbarLoginCtrl',function($scope,$http,notifie
             })
 
     };
-    $scope.logout = function(){
+    $scope.signout = function(){
         auth.logoutUser().then(function(){
             $scope.userName ="";
             $scope.password = "";

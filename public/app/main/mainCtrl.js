@@ -1,3 +1,3 @@
-/**
- * Created by Ahmad on 10/26/2014.
- */
+angular.module('app').controller('mainCtrl',['$scope',function($scope){
+
+}]);

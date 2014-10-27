@@ -7,7 +7,7 @@ module.exports= function(){
     if(env ==='development') {
        return {
                 rootPath:rootPath,
-                db:'mongodb://localhost/multivision',
+                db:'mongodb://localhost/MEANBlog',
                 port:process.env.PORT || 3030,
                 sessionSecret : "lksajdlskjdaskdjaslkdjasldjasldjakasd",
                 sessionCollection:"sessions"
@@ -16,7 +16,7 @@ module.exports= function(){
     else {
        return{
             rootPath:rootPath,
-            db:'mongodb://banna:123456@ds047800.mongolab.com:47800/multivision',
+            db:'mongodb://banna:123456@ds047800.mongolab.com:47800/MEANBlog',
             port:process.env.PORT || 80,
            sessionSecret : "lksajdlskjdaskdjaslkdjasldjasldjakasd",
            sessionCollection:"sessions"

@@ -4,5 +4,19 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="angularjs-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="body-parser-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="express-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="express-session-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="mongodb-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="mongoose-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="morgan-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="Node.js v0.10.26 Core Modules" level="application" />
+    <orderEntry type="library" name="passport-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="passport-local-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="passport-strategy-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="toastr-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="angular-ui-bootstrap-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="AdsiaTest node_modules" level="project" />
   </component>
 </module>
