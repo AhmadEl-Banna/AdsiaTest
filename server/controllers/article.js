@@ -41,7 +41,7 @@ exports.update = function(req, res) {
                 message: err
             });
         } else {
-            res.jsonp(article);
+           return res.status(200).send(article);
         }
     });
 };
@@ -67,7 +67,7 @@ exports.delete = function(req, res) {
  * List of Articles
  */
 exports.list = function(req, res) {
-    Article.find().sort('-created').populate('user').exec(function(err, articles) {
+    search(Article.find(),req).sort('-created').populate('user','_id userName firstName lastName').exec(function(err, articles) {
         if (err) {
             return res.status(400).send({
                 message: err
@@ -78,8 +78,21 @@ exports.list = function(req, res) {
     });
 };
 
+var search = function(query,req){
+    if(req.query.search){
+        var re = new RegExp(req.query.search, 'i');
+
+       return query.or([{ 'title': { $regex: re }},
+           { 'content': { $regex: re }},
+           { 'user.userName': { $regex: re }},
+           { 'tags': { $regex: re }}])
+    }
+
+   return query;
+};
+
 exports.articleByID = function(req, res, next, id) {
-    Article.findById(id).populate('user', 'displayName').exec(function(err, article) {
+    Article.findById(id).populate('user', '_id userName firstName lastName').exec(function(err, article) {
         if (err) return next(err);
         if (!article) return next(new Error('Failed to load article ' + id));
         req.article = article;
@@ -87,11 +100,17 @@ exports.articleByID = function(req, res, next, id) {
     });
 };
 
+exports.getAllTags = function(req,res){
+  Article.find().distinct('tags',function(err,tags){
+      res.send(tags);
+  })
+};
+
 /**
  * Article authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-    if (req.article.user._id !== req.user._id) {
+    if (req.article.user.userName !== req.user.userName) {
         return res.status(403).send({
             message: 'User is not authorized'
         });

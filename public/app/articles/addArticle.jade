@@ -1,3 +1,22 @@
-//
-   Created by admin on 11/6/2014.
-
+section(data-ng-controller='ArticlesController')
+   .page-header
+      h1 New Article
+   .col-md-12
+      form.form-horizontal(name='articleForm', data-ng-submit='create()', novalidate='')
+         fieldset
+            .form-group(ng-class='{ "has-error": articleForm.title.$dirty && articleForm.title.$invalid }')
+               label.control-label(for='title') Title
+               .controls
+                  input#title.form-control(name='title', type='text', data-ng-model='title', placeholder='Title', required='')
+            .form-group
+               label.control-label(for='content') Content
+               .controls
+                  textarea#content.form-control(name='content', data-ng-model='content', cols='30', rows='10', placeholder='Content')
+            .form-group
+               label.control-label(for='tags') Tags
+               .controls
+                  tags-input#content.form-control(name='content', data-ng-model='tags', cols='30', rows='10', placeholder='add tags')
+            .form-group
+               input.btn.btn-default(type='submit')
+            .text-danger(data-ng-show='error')
+               strong(data-ng-bind='error')

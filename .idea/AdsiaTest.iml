@@ -18,5 +18,6 @@
     <orderEntry type="library" name="toastr-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="angular-ui-bootstrap-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="AdsiaTest node_modules" level="project" />
+    <orderEntry type="library" name="linq-DefinitelyTyped" level="application" />
   </component>
 </module>

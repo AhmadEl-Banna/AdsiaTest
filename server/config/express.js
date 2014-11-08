@@ -4,6 +4,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     passport = require('passport'),
+    router = express.Router(),
     mongoStore = mongoStore = require('connect-mongo')({
         session: session
     });
@@ -14,8 +15,9 @@ module.exports = function(app,config){
     app.set('view engine','jade');
 
     app.use(express.static(config.rootPath + '/public'));
-
+    app.use(router);
     app.use(logger('dev'));
+
     app.use(cookieParser());
 
     /*{

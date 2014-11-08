@@ -1,0 +1,26 @@
+section(data-ng-controller='ArticlesController', data-ng-init='findOne()')
+   .page-header
+      h1 Edit Article
+   .col-md-12
+      form.form-horizontal(name='articleForm', data-ng-submit='update(articleForm.$valid)', novalidate='')
+         fieldset
+            .form-group(ng-class='{ "has-error" : submitted && articleForm.title.$invalid}')
+               label.control-label(for='title') Title
+               .controls
+                  input#title.form-control(name='title', type='text', data-ng-model='article.title', placeholder='Title', required='')
+               .help-block(ng-show='submitted && articleForm.title.$invalid')
+                  p.text-danger(ng-show='articleForm.title.$error.required') Title is required
+            .form-group(ng-class='{ "has-error" : submitted && articleForm.content.$invalid}')
+               label.control-label(for='content') Content
+               .controls
+                  textarea#content.form-control(name='content', data-ng-model='article.content', cols='30', rows='10', placeholder='Content', required='')
+               .help-block(ng-show='submitted && articleForm.content.$invalid')
+                  p.text-danger(ng-show='articleForm.content.$error.required') Content is required
+            .form-group
+               label.control-label(for='tags') Tags
+               .controls
+                  tags-input#content.form-control(name='tags', data-ng-model='article.tags', cols='30', rows='10', placeholder='add tags')
+            .form-group
+               input.btn.btn-default(type='submit', value='Update')
+            .text-danger(data-ng-show='error')
+               strong(data-ng-bind='error')

@@ -12,6 +12,7 @@ module.exports = function (config) {
     db.once('open',function callback(){
         console.log('MultiVision db is opened');
         userModel.createDefaultUsers();
+        article.createSampleArticles();
     });
 
 };

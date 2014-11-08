@@ -1,15 +1,20 @@
-angular.module('app', ['ngResource', 'ngRoute','ui.bootstrap']);
+angular.module('app', ['ngResource', 'ngRoute','ui.bootstrap','ngTagsInput']);
 
 angular.module('app').config(function($routeProvider, $locationProvider) {
   var routeRoleChecks = {
     admin: {auth: function(auth) {
       return auth.authorizeCurrentUserForRoute('admin')
-    }}
-  }
-    $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-    });
+    }},
+      isAuthentcated:{identity:function(identity){
+          return identity.isAuthenticated();
+      }}
+  };
+
+ /* $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+  });*/
+
   $routeProvider
       .when('/', { templateUrl: '/partials/main/main', controller: 'mainCtrl'})
       .when('/admin/users', { templateUrl: '/partials/admin/user-list',
@@ -18,6 +23,21 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
       .when('/signup', { templateUrl: '/partials/account/signup',
         controller: 'signupCtrl'
       })
+      .when('/articles',{
+          templateUrl: '/partials/articles/articlesList',
+          resolve:routeRoleChecks.isAuthentcated
+      })
+      .when('/articles/add',{
+          templateUrl: '/partials/articles/addArticle',
+          resolve:routeRoleChecks.isAuthentcated
+      })
+      .when('/articles/:articleId',{
+          templateUrl: '/partials/articles/articleView'
+      })
+      .when('/articles/:articleId/edit',{
+          templateUrl: '/partials/articles/articleEdit'
+      })
+
 
 });
 

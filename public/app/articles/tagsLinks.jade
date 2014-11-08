@@ -1,0 +1,3 @@
+ul.list-group(ng-controller="tags")
+   li.list-group-item(ng-repeat="tag in tags")
+      a.btn-link(ng-href="#/articlesList/{{tag.text}}") {{tag.text}}

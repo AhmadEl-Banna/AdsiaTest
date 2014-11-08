@@ -19,19 +19,22 @@ module.exports = function(app) {
         res.end();
     });
 
-    app.get('/articles',articles.list);
-    app.post('/articles',users.requiresLogin, articles.create);
+    app.route('/articles')
+        .get(articles.list)
+        .post(auth.requiresApiLogin, articles.create);
 
-    app.get('/articles/:articleId',articles.read)
-    app.put('/articles/:articleId', articles.hasAuthorization, articles.update)
-    app.delete('/articles/:articleId', articles.hasAuthorization, articles.delete);
+    app.route('/articles/:articleId')
+        .get(articles.read)
+        .put(articles.hasAuthorization, articles.update)
+        .delete(auth.requiresApiLogin, articles.hasAuthorization, articles.delete);
 
     // Finish by binding the article middleware
     app.param('articleId', articles.articleByID);
 
+    app.get('/tags',articles.getAllTags)
     app.get('/' , function(req, res) {
         res.render('index', {
             bootstrappedUser: req.user
         });
     });
-}
+};
