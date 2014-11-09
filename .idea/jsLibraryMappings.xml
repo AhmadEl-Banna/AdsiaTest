@@ -2,7 +2,8 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{AdsiaTest node_modules}" />
-    <file url="PROJECT" libraries="{Node.js v0.10.26 Core Modules, angular-ui-bootstrap-DefinitelyTyped, angularjs-DefinitelyTyped, body-parser-DefinitelyTyped, express-DefinitelyTyped, express-session-DefinitelyTyped, linq-DefinitelyTyped, mongodb-DefinitelyTyped, mongoose-DefinitelyTyped, morgan-DefinitelyTyped, passport-DefinitelyTyped, passport-local-DefinitelyTyped, passport-strategy-DefinitelyTyped, toastr-DefinitelyTyped}" />
+    <file url="file://$PROJECT_DIR$/public/app/articles/views/tagsLinks.html" libraries="{AdsiaTest node_modules}" />
+    <file url="PROJECT" libraries="{angularjs-DefinitelyTyped, express-DefinitelyTyped, mongodb-DefinitelyTyped, mongoose-DefinitelyTyped, passport-DefinitelyTyped, passport-local-DefinitelyTyped}" />
     <includedPredefinedLibrary name="Node.js Globals" />
   </component>
 </project>

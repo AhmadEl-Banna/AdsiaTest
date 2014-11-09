@@ -1,11 +1,19 @@
 angular.module('app').controller('ArticlesController', ['$scope', '$routeParams', '$location', 'identity', 'Articles','tagsService',
     function($scope, $routeParams, $location, identity, Articles,tagsService) {
-        $scope.authentication = identity;
 
-        $scope.seachText= "";
-        $scope.search = function () {
-            $scope.articles = Articles.query({search:$scope.seachText})
-        };
+      $scope.authentication = identity;
+
+      $scope.searchText= "";
+
+      $scope.$watch('searchText', function (newValue) {
+         search(newValue);
+      });
+
+
+
+      var search = function (search) {
+          $scope.articles = Articles.query({search:search})
+      };
 
         $scope.create = function() {
             var article = new Articles({

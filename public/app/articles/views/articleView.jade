@@ -8,8 +8,11 @@ section(data-ng-controller='ArticlesController', data-ng-init='findOne()')
          i.glyphicon.glyphicon-trash
    small
       em.text-muted
-         | Posted on
+         | Posted on&nbsp
          span(data-ng-bind='article.created | date:"mediumDate"')
-         | by
+         | by&nbsp
          span(data-ng-bind='article.user.userName')
    p.lead(data-ng-bind='article.content')
+   ul.list-group.list-inline
+    li.list-group-item(ng-repeat="tag in article.tags")
+     a.btn-link(ng-href="#/articlesList/{{tag.text}}") {{tag.text}}

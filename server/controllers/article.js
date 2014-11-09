@@ -67,7 +67,7 @@ exports.delete = function(req, res) {
  * List of Articles
  */
 exports.list = function(req, res) {
-    search(Article.find(),req).sort('-created').populate('user','_id userName firstName lastName').exec(function(err, articles) {
+    search(Article.find(),req).populate('user','_id userName firstName lastName').sort('-created').exec(function(err, articles) {
         if (err) {
             return res.status(400).send({
                 message: err
@@ -82,10 +82,12 @@ var search = function(query,req){
     if(req.query.search){
         var re = new RegExp(req.query.search, 'i');
 
-       return query.or([{ 'title': { $regex: re }},
+       return query.or([
+           { 'title': { $regex: re }},
            { 'content': { $regex: re }},
            { 'user.userName': { $regex: re }},
-           { 'tags': { $regex: re }}])
+           { 'tags': { $regex: re }}
+       ]);
     }
 
    return query;
@@ -101,7 +103,7 @@ exports.articleByID = function(req, res, next, id) {
 };
 
 exports.getAllTags = function(req,res){
-  Article.find().distinct('tags',function(err,tags){
+  Article.find().distinct('tags.text',function(err,tags){
       res.send(tags);
   })
 };

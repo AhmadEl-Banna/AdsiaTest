@@ -1,0 +1,20 @@
+section(data-ng-controller='ArticlesController', data-ng-init='find()')
+  div.row
+    div.col-lg-4
+      input.form-control(name='title', type='search', ng-model='searchText',ng-model-options="{getterSetter:true,debounce:500}", placeholder='Type To Filter Articles', required='')
+    div.col-lg-1
+      a.col-lg-2.btn-success.glyphicon-plus
+  div.row
+    ul.list-group.col-lg-9
+        a.list-group-item(data-ng-repeat='article in articles', data-ng-href='#/articles/{{article._id}}')
+           small.list-group-item-text
+              | Posted on&nbsp
+              span(ng-bind='article.created | date:"mediumDate"')
+              |  by&nbsp
+              span(ng-bind='article.user.userName')
+           h4.list-group-item-heading(data-ng-bind='article.title')
+           p.list-group-item-text(data-ng-bind='article.content')
+        .alert.alert-warning.text-center(data-ng-if='articles.$resolved && !articles.length')
+          | No articles yet, why don't you
+          a(href='#/articles/add') create one ?
+    div.col-lg-3(ng-include="'/partials/articles/views/tagsLinks'")

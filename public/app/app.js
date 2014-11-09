@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute','ui.bootstrap','ngTagsInput']);
+angular.module('app', ['ngResource', 'ngRoute','ui.bootstrap','ngTagsInput','angular-loading-bar']);
 
 angular.module('app').config(function($routeProvider, $locationProvider) {
   var routeRoleChecks = {
@@ -24,18 +24,18 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
         controller: 'signupCtrl'
       })
       .when('/articles',{
-          templateUrl: '/partials/articles/articlesList',
-          resolve:routeRoleChecks.isAuthentcated
+          templateUrl: '/partials/articles/views/articlesList'
       })
       .when('/articles/add',{
-          templateUrl: '/partials/articles/addArticle',
+          templateUrl: '/partials/articles/views/addArticle',
           resolve:routeRoleChecks.isAuthentcated
       })
       .when('/articles/:articleId',{
-          templateUrl: '/partials/articles/articleView'
+          templateUrl: '/partials/articles/views/articleView'
       })
       .when('/articles/:articleId/edit',{
-          templateUrl: '/partials/articles/articleEdit'
+          templateUrl: '/partials/articles/views/articleEdit',
+          resolve:routeRoleChecks.isAuthentcated
       })
 
 
