@@ -27,9 +27,12 @@ module.exports = function(app) {
         .get(articles.read)
         .put(articles.hasAuthorization, articles.update)
         .delete(auth.requiresApiLogin, articles.hasAuthorization, articles.delete);
-
     // Finish by binding the article middleware
     app.param('articleId', articles.articleByID);
+
+    app.route('/articles/tag/:tag')
+        .get(articles.articlesByTag);
+    app.param('tag', articles.articlesByTag);
 
     app.get('/tags',articles.getAllTags)
     app.get('/' , function(req, res) {

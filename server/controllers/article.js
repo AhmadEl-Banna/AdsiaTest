@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
     Article = mongoose.model('Article'),
+    User = mongoose.model('User'),
+    async = require('async'),
     _ = require('lodash');
 
 /**
@@ -31,7 +33,7 @@ exports.read = function(req, res) {
  * Update a article
  */
 exports.update = function(req, res) {
-    var article = req.article;
+
 
     article = _.extend(article, req.body);
 
@@ -67,30 +69,72 @@ exports.delete = function(req, res) {
  * List of Articles
  */
 exports.list = function(req, res) {
-    search(Article.find(),req).populate('user','_id userName firstName lastName').sort('-created').exec(function(err, articles) {
-        if (err) {
-            return res.status(400).send({
-                message: err
-            });
-        } else {
-            res.send(articles);
-        }
-    });
-};
-
-var search = function(query,req){
-    if(req.query.search){
+    if(req.query.search && req.query.search !=="" && req.query.search !==" "){
         var re = new RegExp(req.query.search, 'i');
-
-       return query.or([
-           { 'title': { $regex: re }},
-           { 'content': { $regex: re }},
-           { 'user.userName': { $regex: re }},
-           { 'tags': { $regex: re }}
-       ]);
+        async.parallel([
+            function(callback){
+                User.find().or([
+                    { 'userName': { $regex: re }},
+                    { 'firstName': { $regex: re }},
+                    { 'lastName': { $regex: re }}
+                ]).select('_id')
+                    .exec(function (err, result) {
+                        if(err){
+                            callback(err,null);
+                        }
+                        else{
+                            Article.find().where('user').in(result)
+                                .populate('user','_id userName firstName lastName')
+                                .exec(function(err,data){
+                                    if(err){
+                                        callback(err,null);
+                                    }
+                                    else{
+                                        callback(null,data);
+                                    }
+                                });
+                        }
+                    })
+            },
+            function(callback){
+                Article.find().or([
+                    { 'title': { $regex: re }},
+                    { 'content': { $regex: re }},
+                    { 'tags.text': { $regex: re }}
+                ]).populate('user','_id userName firstName lastName').sort('-created')
+                    .exec(function(err, articles) {
+                        if (err) {
+                            callback(err,null);
+                        } else {
+                            callback(null,articles);
+                        }
+                    });
+            }
+        ],function(err,results){
+            if(err){
+                return res.status(400).send({
+                    message: err
+                });
+            }
+            res.send(results[0].concat(results[1]))
+        });
+    }
+    else
+    {
+        Article.find()
+            .populate('user','_id userName firstName lastName')
+            .sort('-created')
+            .exec(function(err, articles) {
+                if (err) {
+                    return res.status(400).send({
+                        message: err
+                    });
+                } else {
+                    res.send(articles);
+                }
+            });
     }
 
-   return query;
 };
 
 exports.articleByID = function(req, res, next, id) {
@@ -102,6 +146,27 @@ exports.articleByID = function(req, res, next, id) {
     });
 };
 
+exports.articlesByTag = function(req,res,next,tag){
+    Article.find({'tags.text':tag})
+        .populate('user', '_id userName firstName lastName')
+        .exec(function(err, articles) {
+            if (err) {
+                return next(err);
+            } else {
+                res.send(articles);
+                next();
+            }
+
+        });
+};
+
+exports.getusersArticles  = function(req,res){
+    var reg = new RegExp(req.query.search, 'i');
+    Article.find().populate('user', 'userName').where('user.userName').regex(reg)
+        .exec(function(err,articles){
+            res.send(articles);
+        });
+};
 exports.getAllTags = function(req,res){
   Article.find().distinct('tags.text',function(err,tags){
       res.send(tags);

@@ -15,4 +15,4 @@ section(data-ng-controller='ArticlesController', data-ng-init='findOne()')
    p.lead(data-ng-bind='article.content')
    ul.list-group.list-inline
     li.list-group-item(ng-repeat="tag in article.tags")
-     a.btn-link(ng-href="#/articlesList/{{tag.text}}") {{tag.text}}
+     a.btn-link(ng-href="#/articles/tag/{{tag.text}}") {{tag.text}}

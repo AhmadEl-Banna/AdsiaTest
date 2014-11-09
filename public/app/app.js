@@ -37,6 +37,9 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
           templateUrl: '/partials/articles/views/articleEdit',
           resolve:routeRoleChecks.isAuthentcated
       })
+      .when('/articles/tag/:tag',{
+          templateUrl: '/partials/articles/views/articlesList'
+      });
 
 
 });

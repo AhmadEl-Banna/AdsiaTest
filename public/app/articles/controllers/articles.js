@@ -1,5 +1,5 @@
-angular.module('app').controller('ArticlesController', ['$scope', '$routeParams', '$location', 'identity', 'Articles','tagsService',
-    function($scope, $routeParams, $location, identity, Articles,tagsService) {
+angular.module('app').controller('ArticlesController', ['$scope', '$routeParams','ArticlesByTag', '$location', 'identity', 'Articles','tagsService',
+    function($scope, $routeParams,ArticlesByTag, $location, identity, Articles,tagsService) {
 
       $scope.authentication = identity;
 
@@ -8,8 +8,6 @@ angular.module('app').controller('ArticlesController', ['$scope', '$routeParams'
       $scope.$watch('searchText', function (newValue) {
          search(newValue);
       });
-
-
 
       var search = function (search) {
           $scope.articles = Articles.query({search:search})
@@ -58,8 +56,17 @@ angular.module('app').controller('ArticlesController', ['$scope', '$routeParams'
         };
 
         $scope.find = function() {
-            $scope.articles = Articles.query();
-            $scope.tags = tagsService.query();
+            if($routeParams.tag)
+            {
+                ArticlesByTag.getByTag($routeParams.tag).success(function(data){
+                    $scope.articles = data;
+                });
+            }
+            else{
+                $scope.articles = Articles.query();
+                $scope.tags = tagsService.query();
+            }
+
         };
 
         $scope.findOne = function() {
