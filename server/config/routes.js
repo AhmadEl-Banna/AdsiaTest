@@ -25,7 +25,7 @@ module.exports = function(app) {
 
     app.route('/articles/:articleId')
         .get(articles.read)
-        .put(articles.hasAuthorization, articles.update)
+        .put(auth.requiresApiLogin, articles.hasAuthorization, articles.update)
         .delete(auth.requiresApiLogin, articles.hasAuthorization, articles.delete);
     // Finish by binding the article middleware
     app.param('articleId', articles.articleByID);
