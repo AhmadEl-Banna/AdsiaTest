@@ -3,7 +3,7 @@ section(data-ng-controller='ArticlesController', data-ng-init='find()')
     div.col-lg-4
       input.form-control(name='title', type='search', ng-model='searchText',ng-model-options="{getterSetter:true,debounce:500}", placeholder='Type To Filter Articles', required='')
     div.col-lg-1
-      a.col-lg-2.btn-success.glyphicon-plus
+      a.col-lg-2.btn-success.glyphicon-plus(href="#/articles/add",ng-show="identity.isAuthenticated()")
   div.row
     ul.list-group.col-lg-9
         a.list-group-item(data-ng-repeat='article in articles', data-ng-href='#/articles/{{article._id}}')
