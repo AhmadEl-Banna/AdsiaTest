@@ -33,9 +33,7 @@ exports.read = function(req, res) {
  * Update a article
  */
 exports.update = function(req, res) {
-
-
-    article = _.extend(article, req.body);
+   var article = _.extend(req.article, req.body);
 
     article.save(function(err) {
         if (err) {
